@@ -8,19 +8,19 @@ export const noteResolvers = {
       createdAt: note.createdAt.toISOString(),
     }));
   },
-  note: async ({id}: {id: string}) => {
+  note: async ({ id }: { id: string }) => {
     const note = await database.note.findFirst({
       where: {
         id: id,
-      }
+      },
     });
     if (!note) {
-      throw new Error("note not found");
+      throw new Error('note not found');
     }
     return {
       ...note,
       createdAt: note.createdAt,
-    }
+    };
   },
   createNote: async ({ title, body }: { title: string; body: string }) => {
     const note = await database.note.create({

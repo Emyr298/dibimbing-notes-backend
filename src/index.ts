@@ -1,18 +1,9 @@
 import express from 'express';
 import { createHandler } from 'graphql-http/lib/use/express';
 import { buildSchema } from 'graphql';
+import { NOTE_SCHEMA, noteResolvers } from './notes';
 
-const schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`);
-
-const root = {
-  hello() {
-    return 'Hello world!';
-  },
-};
+const schema = buildSchema(NOTE_SCHEMA);
 
 const app = express();
 
@@ -20,7 +11,9 @@ app.all(
   '/graphql',
   createHandler({
     schema: schema,
-    rootValue: root,
+    rootValue: {
+      ...noteResolvers,
+    },
   }),
 );
 

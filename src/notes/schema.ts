@@ -1,6 +1,7 @@
 export const NOTE_SCHEMA = `
 type Query {
   notes: [Note]
+  note(id: String!): Note
 }
   
 type Mutation {

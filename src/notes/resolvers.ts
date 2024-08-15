@@ -1,4 +1,5 @@
 import { database } from '../database';
+import { validateNote } from './validators';
 
 export const noteResolvers = {
   notes: async () => {
@@ -23,6 +24,12 @@ export const noteResolvers = {
     };
   },
   createNote: async ({ title, body }: { title: string; body: string }) => {
+    const isValid = validateNote({
+      title,
+    });
+    if (!isValid) {
+      throw new Error('maximum characters for title is 64');
+    }
     const note = await database.note.create({
       data: {
         title: title,
@@ -43,6 +50,12 @@ export const noteResolvers = {
     title: string;
     body: string;
   }) => {
+    const isValid = validateNote({
+      title,
+    });
+    if (!isValid) {
+      throw new Error('maximum characters for title is 64');
+    }
     const note = await database.note.update({
       where: {
         id: id,

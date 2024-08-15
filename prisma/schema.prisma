@@ -9,7 +9,7 @@ generator client {
 
 model Note {
     id String @id @default(uuid())
-    title String
+    title String @db.VarChar(64)
     body String
     createdAt DateTime @default(now())
 }

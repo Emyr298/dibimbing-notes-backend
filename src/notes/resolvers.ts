@@ -19,7 +19,7 @@ export const noteResolvers = {
     }
     return {
       ...note,
-      createdAt: note.createdAt,
+      createdAt: note.createdAt.toISOString(),
     };
   },
   createNote: async ({ title, body }: { title: string; body: string }) => {
